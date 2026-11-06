@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,13 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff;--fg:#000;--mut:#6b6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#fff;--mut:#9a9a9a}}
-:root[data-theme="dark"]{--bg:#000;--fg:#fff;--mut:#9a9a9a}
+:root{--bg:#000;--fg:#fff;--mut:#9a9a9a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#fff;--fg:#000;--mut:#6b6b6b;color-scheme:light}
 html{height:100dvh;overflow:hidden;overscroll-behavior:none;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:'Fira Code',ui-monospace,Menlo,Consolas,monospace;line-height:1.6;height:100%;overflow:hidden}
 a{color:inherit}
+.theme{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + .8rem);left:.8rem;width:38px;height:38px;padding:7px;background:var(--bg);color:var(--fg);border:2px solid var(--fg);cursor:pointer}
+.theme svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:miter}
+.theme .moon{display:none}
+:root[data-theme="light"] .theme .sun{display:none}
+:root[data-theme="light"] .theme .moon{display:block}
+.theme:hover{background:var(--fg);color:var(--bg)}
 :focus-visible{outline:2px solid var(--fg);outline-offset:4px}
 .stage{position:relative;width:min(900px,calc(100% - 2rem));height:100%;margin:0 auto;padding:clamp(1rem,7vh,5rem) 0 0;display:flex;flex-direction:column;overflow:hidden}
 /* vertical line on the right side, connected to every grid */
@@ -30,7 +35,7 @@ h1{margin:.6rem 0 1.4rem;font-size:clamp(1.3rem,4.2vw,2rem);font-weight:500;lett
 .gear svg{width:56px;height:56px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:miter;transition:transform .7s cubic-bezier(.65,0,.35,1)}
 .gear span{font-size:.8rem}
 .gear svg circle{fill:var(--bg)}
-.col.on .gear svg polygon{fill:#fff}
+.col.on .gear svg polygon{fill:var(--fg)}
 .vline{width:1px;flex:1;min-height:20px;background:var(--mut);margin-top:.4rem;transform-origin:top;clip-path:inset(0);transition:background .2s,clip-path .5s cubic-bezier(.2,.7,.2,1)}
 .col.on .vline{width:2px;background:var(--fg);animation:draw .45s ease-out;clip-path:inset(0 0 calc(100% - var(--len,0px)) 0);transition:background .2s,clip-path .6s .3s cubic-bezier(.2,.7,.2,1)}
 @keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
@@ -50,6 +55,7 @@ ul.files li::before{content:"";position:absolute;left:0;top:.2em;width:1.1rem;he
 .contact li{padding-left:2.2rem}
 .contact svg{position:absolute;left:0;top:.1em;width:1.2rem;height:1.2rem}
 .contact svg.st{fill:none;stroke:currentColor;stroke-width:2}
+.stage::after{display:none}
 @media (max-width:520px){.gear svg{width:40px;height:40px}.gear span{font-size:.68rem}.photo{width:110px;height:110px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -60,13 +66,17 @@ ul.files li::before{content:"";position:absolute;left:0;top:.2em;width:1.1rem;he
 <symbol id="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
 </svg>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="md" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></symbol></svg>
+<button class="theme" id="theme" aria-label="Ganti ke mode terang"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button>
+
 <main class="stage">
   <header class="hero">
     <p class="hi">assalamu’alaikum, let’s connect!</p>
     <h1>hilmawan yusuf rukmana</h1>
     <nav class="social" aria-label="Social">
-      <a href="https://www.linkedin.com/in/hilmawan-yusuf-rukmana-758721113/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#li"/></svg></a>
-      <a href="https://github.com/hilmawanyr" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#gh"/></svg></a>
+      <a href="https://www.linkedin.com/in/username" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#li"/></svg></a>
+      <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#gh"/></svg></a>
+      <a href="https://medium.com/@username" target="_blank" rel="noopener noreferrer" aria-label="Medium"><svg><use href="#md"/></svg></a>
     </nav>
   </header>
 
@@ -125,6 +135,15 @@ ul.files li::before{content:"";position:absolute;left:0;top:.2em;width:1.1rem;he
   var items = [["profile","Profile"],["projects","Projects"],["skills","Skills"],["contacts","Contacts"]];
   var wrap = document.getElementById("gears");
   var angle = {}, current = null;
+
+  var root = document.documentElement, tb = document.getElementById("theme");
+  function setTheme(t) {
+    root.setAttribute("data-theme", t);
+    tb.setAttribute("aria-label", t === "dark" ? "Ganti ke mode terang" : "Ganti ke mode gelap");
+    try { localStorage.setItem("theme", t); } catch (e) {}
+  }
+  try { var saved = localStorage.getItem("theme"); if (saved === "light" || saved === "dark") setTheme(saved); } catch (e) {}
+  tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
 
   // sharp-toothed gear drawn as a polygon
   function gearSVG() {
