@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hilmawan Yusuf Rukmana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--fg:#000;--mut:#6b6b6b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#fff;--mut:#9a9a9a}}
+:root[data-theme="dark"]{--bg:#000;--fg:#fff;--mut:#9a9a9a}
+html{height:100dvh;overflow:hidden;overscroll-behavior:none;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Fira Code',ui-monospace,Menlo,Consolas,monospace;line-height:1.6;height:100%;overflow:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+.stage{position:relative;width:min(900px,calc(100% - 2rem));height:100%;margin:0 auto;padding:clamp(1rem,7vh,5rem) 0 0;display:flex;flex-direction:column;overflow:hidden}
+/* vertical line on the right side, connected to every grid */
+.stage::after{content:"";position:absolute;top:0;bottom:0;right:0;width:2px;background:var(--fg)}
+.hero{text-align:center;padding-right:2px}
+.hi{margin:0;font-size:.8rem;font-weight:400;color:var(--mut)}
+h1{margin:.6rem 0 1.4rem;font-size:clamp(1.3rem,4.2vw,2rem);font-weight:500;letter-spacing:-.01em}
+.social{display:flex;justify-content:center;gap:1.4rem}
+.social a{display:inline-flex;width:28px;height:28px}
+.social svg,.contact svg{width:100%;height:100%;fill:currentColor}
+.gears{display:grid;grid-template-columns:repeat(4,1fr);flex:1;min-height:0;margin-top:clamp(1rem,4vh,3.5rem);padding-right:2px}
+.col{display:flex;flex-direction:column;align-items:center;min-height:0}
+.gear{background:none;border:0;color:var(--fg);cursor:pointer;padding:.25rem;font:inherit;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.gear svg{width:56px;height:56px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:miter;transition:transform .7s cubic-bezier(.65,0,.35,1)}
+.gear span{font-size:.8rem}
+.gear svg circle{fill:var(--bg)}
+.col.on .gear svg polygon{fill:#fff}
+.vline{width:1px;flex:1;min-height:20px;background:var(--mut);margin-top:.4rem;transform-origin:top;clip-path:inset(0);transition:background .2s,clip-path .5s cubic-bezier(.2,.7,.2,1)}
+.col.on .vline{width:2px;background:var(--fg);animation:draw .45s ease-out;clip-path:inset(0 0 calc(100% - var(--len,0px)) 0);transition:background .2s,clip-path .6s .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.panel{position:absolute;left:0;right:0;top:var(--top,40%);max-height:calc(100% - var(--top,40%));overflow-y:auto;border:2px solid var(--fg);padding:3.2rem clamp(1.2rem,4vw,2.4rem) clamp(1.5rem,4vw,2.4rem);background:var(--bg);transform:translateY(100vh);visibility:hidden;transition:transform .55s cubic-bezier(.2,.7,.2,1),visibility 0s .55s}
+.panel.on{transform:none;visibility:visible;transition:transform .6s .3s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.close{position:absolute;top:.7rem;right:.9rem;width:32px;height:32px;padding:4px;background:none;border:2px solid var(--fg);color:var(--fg);cursor:pointer}
+.close svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.5}
+.close:hover{background:var(--fg);color:var(--bg)}
+.profile{display:flex;gap:clamp(1.2rem,4vw,2.5rem);align-items:center;flex-wrap:wrap}
+.photo{flex:none;width:150px;height:150px;border-radius:50%;border:2px solid var(--fg);display:grid;place-items:center;font-size:1.6rem;font-weight:500}
+.profile dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.5rem 1.4rem;font-size:.9rem;flex:1;min-width:220px}
+.profile dt{color:var(--mut)}.profile dd{margin:0}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+li{position:relative;padding-left:2rem;font-size:.9rem}
+li small{display:block;color:var(--mut);font-size:.78rem}
+ul.files li::before{content:"";position:absolute;left:0;top:.2em;width:1.1rem;height:1.1rem;background:var(--fg);-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='miter'%3E%3Cpath d='M5 2h9l5 5v15H5z'/%3E%3Cpath d='M14 2v5h5'/%3E%3C/svg%3E")}
+.contact li{padding-left:2.2rem}
+.contact svg{position:absolute;left:0;top:.1em;width:1.2rem;height:1.2rem}
+.contact svg.st{fill:none;stroke:currentColor;stroke-width:2}
+@media (max-width:520px){.gear svg{width:40px;height:40px}.gear span{font-size:.68rem}.photo{width:110px;height:110px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="li" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.1 3.77-2.1 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V21h-4z"/></symbol>
+<symbol id="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+</svg>
+
+<main class="stage">
+  <header class="hero">
+    <p class="hi">assalamu’alaikum, let’s connect!</p>
+    <h1>hilmawan yusuf rukmana</h1>
+    <nav class="social" aria-label="Social">
+      <a href="https://www.linkedin.com/in/hilmawan-yusuf-rukmana-758721113/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg><use href="#li"/></svg></a>
+      <a href="https://github.com/hilmawanyr" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg><use href="#gh"/></svg></a>
+    </nav>
+  </header>
+
+  <div class="gears" id="gears"></div>
+
+  <section class="panel" id="profile" aria-label="Profile">
+    <div class="profile">
+      <img src="https://avatars.githubusercontent.com/u/336410889?s=300&v=4" class="photo" alt="Foto profil" />
+      <dl>
+        <dt>Name</dt><dd>Hilmawan Yusuf Rukmana</dd>
+        <dt>Role</dt><dd>Backend Developer</dd>
+        <dt>Experience</dt><dd>Write code since 2015</dd>
+        <dt>Location</dt><dd>Bekasi, Indonesia</dd>
+        <dt>Focus</dt><dd>TypeScript, hexagonal architecture, PHP (sometimes). Go & Rust (studying)</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="panel" id="projects" aria-label="Projects">
+    <ul class="files">
+      <li>SIA Ubhara Jaya<small>Academic information system for Bhayangkara Jakarta university</small></li>
+      <li>e-PMB Ubhara Jaya<small>New student admission system for Bhayangkara Jakarta university</small></li>
+      <li>Recomendation Submission Letter<small>Digital approval submission for Bekasi City Government Fisheries and Animal Husbandry Service</small></li>
+      <li>SOBI<small>Sobat Indihome - application for Telkomsel users</small></li>
+      <li>Employee Performance Appraisal<small>PT. Hitachi Construction Machinery Indonesia</small></li>
+      <li>Assessment of Faculty Workload<small>Application for assessing faculty workload and performance</small></li>
+      <li>Aplikasi Jurnal Sekolah Ilmu Lingkungan<small>Faculty of Environmental Engineering, University of Indonesia</small></li>
+      <li>AVO<small>Agent virtual office of HNI member</small></li>
+      <li>Portal<small>HNI backoffice app</small></li>
+      <li>HNI.id<small>e-Commerce of HNI</small></li>
+      <li>Halmall<small>Marketplace for Harmoni Niaga Informatika</small></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="skills" aria-label="Skills">
+    <ul class="files">
+      <li>TypeScript<small>Express, Hono, Kysely, TypeORM</small></li>
+      <li>Go<small>Service backend and REST API</small></li>
+      <li>Hexagonal architecture<small>Ports-and-adapters in TypeScript, Go, and Rust</small></li>
+      <li>Deployment<small>Docker, PM2, VPS, Linux</small></li>
+      <li>PHP / Laravel<small>Legacy system and modern stack</small></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="contacts" aria-label="Contacts">
+    <ul class="contact">
+      <li><svg><use href="#li"/></svg><a href="https://www.linkedin.com/in/hilmawan-yusuf-rukmana-758721113/" target="_blank" rel="noopener noreferrer">linkedin.com/in/hilmawan-yusuf-rukmana-758721113</a></li>
+      <li><svg><use href="#gh"/></svg><a href="https://github.com/hilmawanyr" target="_blank" rel="noopener noreferrer">github.com/hilmawanyr</a></li>
+      <li><svg class="st" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M3 6l9 7 9-7"/></svg><a href="mailto:hilmawanyr.dev@gmail.com">hilmawanyr.dev@gmail.com</a></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+(function () {
+  var items = [["profile","Profile"],["projects","Projects"],["skills","Skills"],["contacts","Contacts"]];
+  var wrap = document.getElementById("gears");
+  var angle = {}, current = null;
+
+  // sharp-toothed gear drawn as a polygon
+  function gearSVG() {
+    var n = 8, step = Math.PI * 2 / n, pts = [];
+    function p(r, a) { return (r * Math.cos(a)).toFixed(2) + "," + (r * Math.sin(a)).toFixed(2); }
+    for (var i = 0; i < n; i++) {
+      var c = i * step;
+      pts.push(p(17, c - .42 * step), p(24, c - .16 * step), p(24, c + .16 * step), p(17, c + .42 * step));
+    }
+    return '<svg viewBox="-26 -26 52 52" aria-hidden="true"><polygon points="' + pts.join(" ") + '"/><circle r="7"/></svg>';
+  }
+
+  items.forEach(function (it) {
+    angle[it[0]] = 0;
+    var col = document.createElement("div");
+    col.className = "col"; col.dataset.id = it[0];
+    col.innerHTML = '<button class="gear" aria-expanded="false" aria-controls="' + it[0] + '">' + gearSVG() + '<span>' + it[1] + '</span></button><div class="vline"></div>';
+    col.querySelector("button").addEventListener("click", function () { toggle(it[0]); });
+    wrap.appendChild(col);
+  });
+
+  function fit() {
+    var st = document.querySelector(".stage");
+    var b = wrap.querySelector(".gear span").getBoundingClientRect();
+    st.style.setProperty("--top", (b.bottom - st.getBoundingClientRect().top + 72) + "px");
+    var v = wrap.querySelector(".vline").getBoundingClientRect().top - st.getBoundingClientRect().top;
+    st.style.setProperty("--len", Math.max(0, b.bottom - st.getBoundingClientRect().top + 72 - v) + "px");
+  }
+  window.addEventListener("resize", fit);
+  if (document.fonts) document.fonts.ready.then(fit);
+  fit();
+
+  document.querySelectorAll(".panel").forEach(function (p) {
+    var b = document.createElement("button");
+    b.className = "close";
+    b.setAttribute("aria-label", "Tutup");
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+    b.addEventListener("click", function () { toggle(p.id); });
+    p.appendChild(b);
+  });
+
+  function toggle(id) {
+    var next = current === id ? null : id;
+    items.forEach(function (it) {
+      var col = wrap.querySelector('[data-id="' + it[0] + '"]');
+      var on = it[0] === next, was = it[0] === current;
+      col.classList.toggle("on", on);
+      col.querySelector("button").setAttribute("aria-expanded", on);
+      if (on || was) {
+        angle[it[0]] += on ? 180 : -180;
+        col.querySelector("svg").style.transform = "rotate(" + angle[it[0]] + "deg)";
+      }
+      document.getElementById(it[0]).classList.toggle("on", on);
+    });
+    current = next;
+  }
+})();
+</script>
+</body>
+</html>
